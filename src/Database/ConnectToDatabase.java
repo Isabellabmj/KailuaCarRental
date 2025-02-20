@@ -11,7 +11,7 @@ public class ConnectToDatabase
 {
    private static final String DB_URL = "jdbc:mysql://localhost:3306/kailuacarrental";
    private static final String USER = "root";
-   private static final String PASSWORD = ""; //finde en måde at gøre kode usynlig
+   private static final String PASSWORD = "";
 
 
        public static Connection getConnection() throws SQLException

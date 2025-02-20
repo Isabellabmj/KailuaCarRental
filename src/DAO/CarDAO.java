@@ -36,7 +36,7 @@ public class CarDAO
     }*/
 
     public static void addCar(Car car) {
-        String sqladd = "INSERT INTO car (brand, model, regNr, firstRegDate, odometer, categoryID, fuelTypeID) VALUES (?,?,?,?,?,?,?)";
+        String sqladd = "insert into car (brand, model, regNr, firstRegDate, odometer, categoryID, fuelTypeID) VALUES (?,?,?,?,?,?,?)";
 
         try (Connection connect = ConnectToDatabase.getConnection();
              PreparedStatement prepstm = connect.prepareStatement(sqladd, Statement.RETURN_GENERATED_KEYS))
@@ -50,20 +50,24 @@ public class CarDAO
             prepstm.setInt(7, car.getFuelType());
 
             int insertRow = prepstm.executeUpdate();
-            if (insertRow > 0) {
+            if (insertRow > 0)
+            {
                 System.out.println("Car successfully added.");
 
 
                 ResultSet newKey = prepstm.getGeneratedKeys();
-                if (newKey.next()) {
+                if (newKey.next())
+                {
                     car.setCarID(newKey.getInt(1));
-                    System.out.println("The key for the new car: " + car.getCarId());
+                    System.out.println("New cars ID number: " + car.getCarId());
                 }
-            } else {
+            } else
+            {
                 System.out.println("Car was not added.");
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println("Error, car not added: " + e.getMessage());
             e.printStackTrace();
         }

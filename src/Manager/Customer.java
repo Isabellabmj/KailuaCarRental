@@ -3,7 +3,7 @@ import java.sql.Date;
 
 public class Customer
 {
-    private int customerId;
+    private int customerId = 0;
     private String name;
     private String address;
     private String zip;

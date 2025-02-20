@@ -117,7 +117,34 @@ public class Test
         }
     }
 
+    public static void testDeleteCustomer()
+    {
+        CustomerDAO customerDao = new CustomerDAO();
 
+        int customerID = 9;
+
+        System.out.println("deleting customer with ID: " + customerID);
+        customerDao.deleteCustomer(customerID);
+
+        List<Customer> customers = customerDao.getAllCustomers();
+        boolean exists = false;
+        for(Customer cus : customers)
+        {
+            if(cus.getCustomerID() == customerID)
+            {
+                exists = true;
+                break;
+            }
+        }
+        if(!exists)
+        {
+            System.out.println("Customer is deleted");
+        }
+        else
+        {
+            System.out.println("Customer was not deleted");
+        }
+    }
 
 }
 

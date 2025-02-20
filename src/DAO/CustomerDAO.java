@@ -86,6 +86,32 @@ public class CustomerDAO
         String sqlDeleteCustomer = "delete from costumer where CostumerID = ?";
 
         try(Connection connect = ConnectToDatabase.getConnection();
+            PreparedStatement statement = connect.prepareStatement(sqlDeleteCustomer))
+        {
+            statement.setInt(1, customerID);
+            int deleteCustomer = statement.executeUpdate();
+
+            if(deleteCustomer > 0)
+            {
+                System.out.println("Customer has been deleted.");
+            }
+            else
+            {
+                System.out.println("Error, customer was not deleted.");
+            }
+        } catch(SQLException e)
+        {
+            System.out.println("Error, can not delete costumer" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+   /* public void deleteCustomer(int customerID)
+    {
+        String sqlDeleteCustomer = "delete from costumer where CostumerID = ?";
+
+        try(Connection connect = ConnectToDatabase.getConnection();
         PreparedStatement statement = connect.prepareStatement(sqlDeleteCustomer))
         {
             statement.setInt(1, customerID);
@@ -104,5 +130,5 @@ public class CustomerDAO
             System.out.println("Error, can not delete costumer" + e.getMessage());
             e.printStackTrace();
         }
-    }
+    }*/
 }

@@ -8,9 +8,10 @@ import java.util.List;
 
 public class CarDAO
 {
-    public static void addCar(Car car)
+    /*public static void addCar(Car car)
     {
-        String sqladd = "Insert into Car (brand, model, regNr, firstRegDate, odometer, CatagoryId, fuelTypeID) Values (?,?,?,?,?,?,?)";
+        String sqladd = "Insert into Car (brand, model, regNr, firstRegDate, odometer, categoryId, fuelTypeId) Values (?,?,?,?,?,?,?)";
+
 
         try(Connection connect = ConnectToDatabase.getConnection();
             PreparedStatement prepstm = connect.prepareStatement(sqladd))
@@ -20,14 +21,52 @@ public class CarDAO
             prepstm.setString(3, car.getRegNr());
             prepstm.setDate(4, car.getFirstRegDate());
             prepstm.setInt(5, car.getOdometer());
-            prepstm.setInt(6, car.getCatagoryId());
+            prepstm.setInt(6, car.getCategoryId());
             prepstm.setInt(7, car.getFuelType());
+
+            prepstm.executeUpdate();
+
+
             System.out.println("Car successfully added");
         } catch (SQLException e)
         {
             System.out.println("Error, car not added");
         }
 
+    }*/
+
+    public static void addCar(Car car) {
+        String sqladd = "INSERT INTO car (brand, model, regNr, firstRegDate, odometer, categoryID, fuelTypeID) VALUES (?,?,?,?,?,?,?)";
+
+        try (Connection connect = ConnectToDatabase.getConnection();
+             PreparedStatement prepstm = connect.prepareStatement(sqladd, Statement.RETURN_GENERATED_KEYS))
+        {
+            prepstm.setString(1, car.getBrand());
+            prepstm.setString(2, car.getModel());
+            prepstm.setString(3, car.getRegNr());
+            prepstm.setDate(4, car.getFirstRegDate());
+            prepstm.setInt(5, car.getOdometer());
+            prepstm.setInt(6, car.getCategoryId());
+            prepstm.setInt(7, car.getFuelType());
+
+            int insertRow = prepstm.executeUpdate();
+            if (insertRow > 0) {
+                System.out.println("Car successfully added.");
+
+
+                ResultSet newKey = prepstm.getGeneratedKeys();
+                if (newKey.next()) {
+                    car.setCarID(newKey.getInt(1));
+                    System.out.println("The key for the new car: " + car.getCarId());
+                }
+            } else {
+                System.out.println("Car was not added.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error, car not added: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static List<Car> getAllCars() {

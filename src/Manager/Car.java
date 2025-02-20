@@ -3,13 +3,13 @@ import java.sql.Date;
 
 public class Car
 {
-    private int carID;
+    private int carID = 0;
     private String brand;
     private String model;
     private String regNr;
     private Date firstRegDate;
     private int odometer;
-    private int catagoryId;
+    private int categoryId;
     private int fuelType;
 
     public Car(){}
@@ -22,11 +22,11 @@ public class Car
         this.regNr = regNr;
         this.firstRegDate = firstRegDate;
         this.odometer = odometer;
-        this.catagoryId = catagoryId;
+        this.categoryId = catagoryId;
         this.fuelType = fuelType;
     }
 
-    public int getId()
+    public int getCarId()
     {
         return carID;
     }
@@ -56,9 +56,9 @@ public class Car
         return odometer;
     }
 
-    public int getCatagoryId()
+    public int getCategoryId()
     {
-        return catagoryId;
+        return categoryId;
     }
 
     public int getFuelType()
@@ -98,7 +98,7 @@ public class Car
 
     public void setCatagoryId(int catagoryId)
     {
-        this.catagoryId = catagoryId;
+        this.categoryId = catagoryId;
     }
 
     public void setOdometer(int odometer)
@@ -119,7 +119,7 @@ public class Car
                 + "Model: " + model + "\n"
                 + "Registration number: " + regNr + "\n"
                 + "Odometer: " + odometer + "\n"
-                + "Catagory ID: " + catagoryId + "\n"
+                + "Catagory ID: " + categoryId + "\n"
                 + "FuelType ID: " + fuelType;
     }
 }

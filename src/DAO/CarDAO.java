@@ -35,7 +35,7 @@ public class CarDAO
 
     }*/
 
-    public static void addCar(Car car) {
+    public void addCar(Car car) {
         String sqladd = "insert into car (brand, model, regNr, firstRegDate, odometer, categoryID, fuelTypeID) VALUES (?,?,?,?,?,?,?)";
 
         try (Connection connect = ConnectToDatabase.getConnection();
@@ -73,7 +73,8 @@ public class CarDAO
         }
     }
 
-    public static List<Car> getAllCars() {
+    public List<Car> getAllCars()
+    {
         List<Car> cars = new ArrayList<>();
         String sqlshow = "select * from Car";
 
@@ -88,12 +89,11 @@ public class CarDAO
                         (result.getInt("CarID"),
                         result.getString("brand"),
                         result.getString("model"),
-                        result.getString("regNr"),
+                        result.getString("regNr"), //skulle have gjort denne unique da der kan oprettes flere biler med samme nrplade
                         result.getDate("firstRegDate"),
                         result.getInt("odometer"),
                         result.getInt("categoryID"),
-                        result.getInt("fuelTypeID")
-                        );
+                        result.getInt("fuelTypeID"));
 
                 cars.add(car);
             }
@@ -106,7 +106,7 @@ public class CarDAO
         return cars;
     }
 
-    public static void deleteCar(int carID)
+    public void deleteCar(int carID)
     {
         String sqldelete = "delete from Car where CarID = ?";
 
@@ -122,4 +122,6 @@ public class CarDAO
             System.out.println("Error deleting car: " + e.getMessage());
         }
     }
+
+
 }

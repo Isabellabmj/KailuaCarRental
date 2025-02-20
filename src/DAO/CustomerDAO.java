@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CustomerDAO
 {
-    public static void addCustomer(Customer customer)
+    public void addCustomer(Customer customer)
     {
         String sqlAddCustomer = "insert into Costumer(Cname, Caddress, Czip, Ccity, Ccellphone, Cphone, Cemail, CdriverLicence, CdriverSince) values (?,?,?,?,?,?,?,?,?)";
 
@@ -44,5 +44,39 @@ public class CustomerDAO
             System.out.println("Error, can not add costumer" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public List<Customer> getAllCustomers()
+    {
+        List<Customer> customers = new ArrayList<>();
+        String sqlShowCustomers = "select * from costumer";
+
+        try(Connection connect = ConnectToDatabase.getConnection();
+        Statement statement = connect.createStatement();
+        ResultSet result = statement.executeQuery(sqlShowCustomers))
+        {
+            while(result.next())
+            {
+                Customer customer = new Customer
+                        (result.getInt("CostumerID"),
+                        result.getString("Cname"),
+                        result.getString("Caddress"),
+                        result.getString("Czip"),
+                        result.getString("Ccity"),
+                        result.getString("Ccellphone"),
+                        result.getString("Cphone"),
+                        result.getString("Cemail"),
+                        result.getString("CdriverLicence"),
+                        result.getDate("CdriverSince"));
+
+                        customers.add(customer);
+
+            }
+            System.out.println("All customers loaded");
+        } catch(SQLException e)
+        {
+            System.out.println("Error, can not get all customers" + e.getMessage());
+        }
+        return customers;
     }
 }

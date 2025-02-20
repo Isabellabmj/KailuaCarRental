@@ -76,7 +76,33 @@ public class CustomerDAO
         } catch(SQLException e)
         {
             System.out.println("Error, can not get all customers" + e.getMessage());
+            e.printStackTrace();
         }
         return customers;
+    }
+
+    public void deleteCustomer(int customerID)
+    {
+        String sqlDeleteCustomer = "delete from costumer where CostumerID = ?";
+
+        try(Connection connect = ConnectToDatabase.getConnection();
+        PreparedStatement statement = connect.prepareStatement(sqlDeleteCustomer))
+        {
+            statement.setInt(1, customerID);
+            int deleteRow = statement.executeUpdate();
+
+            if(deleteRow > 0)
+            {
+                System.out.println("Customer with ID:" + customerID + " has been deleted.");
+            }
+            else
+            {
+                System.out.println("No customer was deleted.");
+            }
+        }catch(SQLException e)
+        {
+            System.out.println("Error, can not delete costumer" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

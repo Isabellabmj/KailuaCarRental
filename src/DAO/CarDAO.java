@@ -8,32 +8,6 @@ import java.util.List;
 
 public class CarDAO
 {
-    /*public static void addCar(Car car)
-    {
-        String sqladd = "Insert into Car (brand, model, regNr, firstRegDate, odometer, categoryId, fuelTypeId) Values (?,?,?,?,?,?,?)";
-
-
-        try(Connection connect = ConnectToDatabase.getConnection();
-            PreparedStatement prepstm = connect.prepareStatement(sqladd))
-        {
-            prepstm.setString(1, car.getBrand());
-            prepstm.setString(2, car.getModel());
-            prepstm.setString(3, car.getRegNr());
-            prepstm.setDate(4, car.getFirstRegDate());
-            prepstm.setInt(5, car.getOdometer());
-            prepstm.setInt(6, car.getCategoryId());
-            prepstm.setInt(7, car.getFuelType());
-
-            prepstm.executeUpdate();
-
-
-            System.out.println("Car successfully added");
-        } catch (SQLException e)
-        {
-            System.out.println("Error, car not added");
-        }
-
-    }*/
 
     public void addCar(Car car) {
         String sqladd = "insert into car (brand, model, regNr, firstRegDate, odometer, categoryID, fuelTypeID) VALUES (?,?,?,?,?,?,?)";
@@ -122,6 +96,34 @@ public class CarDAO
             System.out.println("Error deleting car: " + e.getMessage());
         }
     }
+
+    /*public static void addCar(Car car)
+    {
+        String sqladd = "Insert into Car (brand, model, regNr, firstRegDate, odometer, categoryId, fuelTypeId) Values (?,?,?,?,?,?,?)";
+
+
+        try(Connection connect = ConnectToDatabase.getConnection();
+            PreparedStatement prepstm = connect.prepareStatement(sqladd))
+        {
+            prepstm.setString(1, car.getBrand());
+            prepstm.setString(2, car.getModel());
+            prepstm.setString(3, car.getRegNr());
+            prepstm.setDate(4, car.getFirstRegDate());
+            prepstm.setInt(5, car.getOdometer());
+            prepstm.setInt(6, car.getCategoryId());
+            prepstm.setInt(7, car.getFuelType());
+
+            prepstm.executeUpdate();
+
+
+            System.out.println("Car successfully added");
+        } catch (SQLException e)
+        {
+            System.out.println("Error, car not added");
+        }
+
+    }*/
+
 
 
 }

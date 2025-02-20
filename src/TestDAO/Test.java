@@ -8,6 +8,7 @@ import Manager.Customer;
 import Manager.Rental;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class Test
 
            // testAddCars();
            // testCustomer();
+            testShowAllRentals();
+            testRentalContract();
 
 
 
@@ -73,12 +76,45 @@ public class Test
 
         }*/
 
+    public static void testRentalContract()
+    {
+        RentalDAO newRental = new RentalDAO();
+
+        int CostumerID = 5;
+        int carID = 2;
+        Timestamp fromDate = Timestamp.valueOf("2025-02-20 10:00:00");
+        Timestamp toDate = Timestamp.valueOf("2025-02-27 10:00:00");
+        int maxKm = 1000;
+        int startKm = 20350;
+        int slutKm = 21150;
+
+        newRental.rentalContract(CostumerID, carID, fromDate, toDate, maxKm, startKm, slutKm);
+    }
+
     public static void testShowAllRentals()
     {
         RentalDAO dao = new RentalDAO();
         List<Rental> rentals = dao.showAllRentals();
 
         System.out.println("List of rentals: ");
+
+        if(rentals.isEmpty())
+        {
+            System.out.println("No contracts to show");
+        }
+        else
+        {
+            System.out.println("Rental contracts:");
+            for(Rental rental : rentals)
+            {
+                System.out.println(
+                        "Rental ID: " + rental.getRentalId() + "\n"
+                        + "Customer ID: " + rental.getCustomerId() + "\n"
+                        + "Car ID: " + rental.getCarId() + "\n"
+                        + "Start date for rental: " + rental.getFromDate() + "\n"
+                        + "End date for rental: " + rental.getToDate() + "\n"+ "\n");
+            }
+        }
     }
 
 

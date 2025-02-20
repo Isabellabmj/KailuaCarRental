@@ -24,9 +24,9 @@ public class RentalDAO
             {
                 Rental rental = new Rental(
                         result.getInt("RentalID"),
-                        result.getInt("CustomerID"),
+                        result.getInt("CostumerID"),
                         result.getInt("CarID"),
-                        Timestamp.valueOf(result.getString("fronDate")),
+                        Timestamp.valueOf(result.getString("fromDate")),
                         Timestamp.valueOf(result.getString("toDate")),
                         result.getInt("maxKm"),
                         result.getInt("startKm"),
@@ -43,7 +43,7 @@ public class RentalDAO
         return rentals;
     }
 
-    public void rentalContract(int CustomerID, int CarID, Date fromDate, Date toDate, int maxKm, int startKm, int slutKm)
+    public void rentalContract(int CustomerID, int CarID, Timestamp fromDate, Timestamp toDate, int maxKm, int startKm, int slutKm)
     {
 
 
@@ -80,8 +80,8 @@ public class RentalDAO
 
             insertRentalStmt.setInt(1,CustomerID);
             insertRentalStmt.setInt(2,CarID);
-            insertRentalStmt.setDate(3,fromDate);
-            insertRentalStmt.setDate(4,toDate);
+            insertRentalStmt.setTimestamp(3,fromDate);
+            insertRentalStmt.setTimestamp(4,toDate);
             insertRentalStmt.setInt(5,maxKm);
             insertRentalStmt.setInt(6,startKm);
             insertRentalStmt.setInt(7, slutKm);
